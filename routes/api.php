@@ -19,16 +19,15 @@ use App\Http\Controllers\SuggestionController;
 */
 
 
-
-    // Projects Routes
     Route::resource('projects', ProjectController::class);
 
-    // Tests Routes (Nested under Projects)
     Route::resource('projects.tests', TestController::class);
 
-    // Codes Routes (Nested under Tests)
     Route::resource('projects.tests.codes', CodeController::class);
 
-    // Suggestions Routes (Not nested under Codes)
     Route::resource('suggestions', SuggestionController::class);
+
+    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+        return $request->user();
+    });
 
