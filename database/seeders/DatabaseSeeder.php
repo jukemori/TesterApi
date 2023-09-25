@@ -4,6 +4,10 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Project;
+use App\Models\Test;
+use App\Models\Code;
+use App\Models\Suggestion;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,5 +22,11 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        $this->call([
+            ProjectSeeder::class,
+            TestSeeder::class,  
+            SuggestionSeeder::class,
+            CodeSeeder::class,
+        ]);
     }
 }

@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\CodeController;
+use App\Http\Controllers\SuggestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +18,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
-});
+
+
+    // Projects Routes
+    Route::resource('projects', ProjectController::class);
+
+    // Tests Routes (Nested under Projects)
+    Route::resource('projects.tests', TestController::class);
+
+    // Codes Routes (Nested under Tests)
+    Route::resource('projects.tests.codes', CodeController::class);
+
+    // Suggestions Routes (Not nested under Codes)
+    Route::resource('suggestions', SuggestionController::class);
+
