@@ -8,9 +8,9 @@ use App\Models\Code;
 
 class CodeController extends Controller
 {
-    public function index()
+    public function index(Request $request, $testId)
     {
-        $codes = Code::all();
+        $codes = Code::where('test_id', $testId)->get();
         return response()->json($codes);
     }
 

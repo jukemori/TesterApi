@@ -8,9 +8,9 @@ use App\Models\Test;
 
 class TestController extends Controller
 {
-    public function index()
+    public function index(Request $request, $projectId)
     {
-        $tests = Test::all();
+        $tests = Test::where('project_id', $projectId)->get();
         return response()->json($tests);
     }
 
