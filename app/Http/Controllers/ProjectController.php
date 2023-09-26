@@ -23,23 +23,17 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         // Validate the request
-    $request->validate([
-        'name' => 'required|string|max:255',
-    ]);
-
-    // Get the authenticated user's ID
-    $user_id = auth()->id();
-
-     // Log the user ID and request data for debugging
-     \Log::info('User ID: ' . $userId);
-
-
-    // Create a new project record with the user_id
-    $project = Project::create([
-        'name' => $request->input('name'),
-        'user_id' => $userId,
-    ]);
-
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+    
+        // Get the authenticated user
+        $user = Auth::user();
+    
+        // Create a new project record with the user_id
+        $project = $user->projects()->create([
+            'name' => $request->input('name'),
+        ]);
     return response()->json($project, 201);
     }
 
