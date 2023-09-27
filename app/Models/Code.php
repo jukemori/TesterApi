@@ -9,6 +9,11 @@ class Code extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'code_body',
+        'test_id'
+    ];
+
     public function test()
     {
         return $this->belongsTo(Test::class);
