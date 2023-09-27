@@ -9,6 +9,13 @@ class Test extends Model
 {
     use HasFactory;
 
+    
+    protected $fillable = [
+        'name',
+        'project_id',
+        'is_successful',
+    ];
+
     public function project()
     {
         return $this->belongsTo(Project::class);

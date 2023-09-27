@@ -20,9 +20,17 @@ class TestController extends Controller
         return response()->json($test);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $projectId)
     {
-        $test = Test::create($request->all());
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+       
+        $test = Test::create([
+            'name' => $request->input('name'),
+            'project_id' => $projectId,
+            'is_successful' => false,
+        ]);
         return response()->json($test, 201);
     }
 
