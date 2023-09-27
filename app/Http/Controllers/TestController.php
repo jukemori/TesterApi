@@ -40,9 +40,16 @@ class TestController extends Controller
         return response()->json($test);
     }
 
-    public function destroy(Test $test)
-    {
+    public function destroy($projectId, $testId)
+{
+    try {
+        $test = Test::where('project_id', $projectId)->findOrFail($testId);
         $test->delete();
         return response()->json(['message' => 'Test deleted']);
+    } catch (\Exception $e) {
+        // Log any exceptions for further investigation
+        \Log::error('Error deleting test: ' . $e->getMessage());
+        return response()->json(['error' => 'Error deleting test'], 500);
     }
+}
 }
