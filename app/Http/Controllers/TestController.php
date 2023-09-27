@@ -14,8 +14,9 @@ class TestController extends Controller
         return response()->json($tests);
     }
 
-    public function show(Test $test)
+    public function show($projectId, $testId)
     {
+        $test = Test::where('project_id', $projectId)->findOrFail($testId);
         return response()->json($test);
     }
 
