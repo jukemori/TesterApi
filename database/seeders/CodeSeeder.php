@@ -15,28 +15,26 @@ class CodeSeeder extends Seeder
      */
     public function run(): void
     {
-        //
-        
-        $test1 = Test::find(1);
-        $test2 = Test::find(2);
-        $test3 = Test::find(3);
+        $tests = Test::all();
+        $suggestions = Suggestion::all();
+        $codeBodies = [
+            'Sample code 1',
+            'Sample code 2',
+            'Sample code 3',
+            'Sample code 4',
+            'Sample code 5',
+            'Sample code 6',
+        ];
 
-        Code::create([
-            'test_id' => $test1->id,
-            'suggestion_id' => 1, 
-            'code_body' => 'Sample code for Test 1',
-        ]);
-
-        Code::create([
-            'test_id' => $test2->id,
-            'suggestion_id' => 2, 
-            'code_body' => 'Sample code for Test 2',
-        ]);
-
-        Code::create([
-            'test_id' => $test3->id,
-            'suggestion_id' => null, 
-            'code_body' => 'Sample code for Test 3',
-        ]);
+        foreach ($tests as $test) {
+            foreach ($codeBodies as $codeBody) {
+                Code::create([
+                    'test_id' => $test->id,
+                    'suggestion_id' => $suggestions->random()->id,
+                    'code_body' => $codeBody,
+                ]);
+            }
+        }
     }
+
 }

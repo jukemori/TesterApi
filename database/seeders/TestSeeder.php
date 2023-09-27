@@ -18,11 +18,18 @@ class TestSeeder extends Seeder
         $project2 = Project::find(2);
         $project3 = Project::find(3);
 
-        // Create 5 different tests across the 3 projects
-        Test::create(['name' => 'Test 1', 'project_id' => $project1->id, 'is_successful' => true]);
-        Test::create(['name' => 'Test 2', 'project_id' => $project1->id, 'is_successful' => false]);
-        Test::create(['name' => 'Test 3', 'project_id' => $project2->id, 'is_successful' => true]);
-        Test::create(['name' => 'Test 4', 'project_id' => $project3->id, 'is_successful' => false]);
-        Test::create(['name' => 'Test 5', 'project_id' => $project3->id, 'is_successful' => true]);
+        // Create 4 tests for each project
+        for ($i = 1; $i <= 4; $i++) {
+            Test::create(['name' => "Test {$i}", 'project_id' => $project1->id, 'is_successful' => $i % 2 == 0]);
+            Test::create(['name' => "Test {$i}", 'project_id' => $project2->id, 'is_successful' => $i % 2 == 0]);
+            Test::create(['name' => "Test {$i}", 'project_id' => $project3->id, 'is_successful' => $i % 2 == 0]);
+        }
     }
 }
+
+
+
+
+
+
+
