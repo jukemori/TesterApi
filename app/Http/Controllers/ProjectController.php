@@ -26,14 +26,20 @@ class ProjectController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
-    
-        // Get the authenticated user
-        $user = Auth::user();
-    
+
+        // Get the authenticated user's ID
+        $user_id = auth()->id();
+
+        // Log the user ID and request data for debugging
+        \Log::info('User ID: ' . $userId);
+
+
         // Create a new project record with the user_id
-        $project = $user->projects()->create([
+        $project = Project::create([
             'name' => $request->input('name'),
+            'user_id' => $userId,
         ]);
+
     return response()->json($project, 201);
     }
 

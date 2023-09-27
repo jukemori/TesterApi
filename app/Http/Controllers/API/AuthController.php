@@ -24,12 +24,12 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
+            $token = $user->createToken('ApiToken')->plainTextToken;
+            info('Token generated: ' . $token); // Log the token
             return response()->json([
                 'user' => $user,
-                'authorization' => [
-                    'token' => $user->createToken('ApiToken')->plainTextToken,
-                    'type' => 'bearer',
-                ]
+                'token' => $token,
+                'type' => 'bearer',
             ]);
         }
 
@@ -39,24 +39,29 @@ class AuthController extends Controller
     }
 
     public function register(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
-        ]);
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:6',
+    ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+    ]);
 
-        return response()->json([
-            'message' => 'User created successfully',
-            'user' => $user
-        ]);
-    }
+    // Generate a token for the registered user
+    $token = $user->createToken('ApiToken')->plainTextToken;
+
+    return response()->json([
+        'message' => 'User created successfully',
+        'user' => $user,
+        'token' => $token, // Include the token in the response
+    ]);
+}
+
 
     public function logout()
     {
