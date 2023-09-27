@@ -11,7 +11,12 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::all();
+        // Get the authenticated user's ID
+        $user_id = auth()->id();
+
+        // Retrieve projects associated with the authenticated user
+        $projects = Project::where('user_id', $user_id)->get();
+
         return response()->json($projects);
     }
 
@@ -31,13 +36,13 @@ class ProjectController extends Controller
         $user_id = auth()->id();
 
         // Log the user ID and request data for debugging
-        \Log::info('User ID: ' . $userId);
+        \Log::info('User ID: ' . $user_id);
 
 
         // Create a new project record with the user_id
         $project = Project::create([
             'name' => $request->input('name'),
-            'user_id' => $userId,
+            'user_id' => $user_id,
         ]);
 
     return response()->json($project, 201);
