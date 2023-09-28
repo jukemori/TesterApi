@@ -34,11 +34,13 @@ class TestController extends Controller
         return response()->json($test, 201);
     }
 
-    public function update(Request $request, Test $test)
+    public function update(Request $request, $projectId, $testId)
     {
+        $test = Test::where('project_id', $projectId)->findOrFail($testId);
         $test->update($request->all());
         return response()->json($test);
     }
+
 
     public function destroy($projectId, $testId)
     {
