@@ -8,25 +8,33 @@ use App\Models\Code;
 
 class CodeController extends Controller
 {
-   
-    public function index(Request $request, $testId)
+    private function logRequestInfo(Request $request)
     {
-        \Log::info("Received testId: $testId");
+        \Log::info("Received projectId: " . $request->route('projectId'));
+        \Log::info("Received testId: " . $request->route('testId'));
+    }
 
-        $codes = Code::where('test_id', $testId)->get();
-        \Log::info("Fetched codes:", $codes->toArray()); // Convert $codes to an array
+    private function getTestID(Request $request)
+    {
+        return $request->route('testId');
+    }
+
+    public function index(Request $request, $projectId, $testId)
+    {
+        $this->logRequestInfo($request);
+
+        $codes = Code::where('test_id', $this->getTestID($request))->get();
+        \Log::info("Fetched codes:", $codes->toArray());
 
         return response()->json($codes);
     }
-
 
     public function show(Code $code)
     {
         return response()->json($code);
     }
 
-
-    public function store(Request $request, $testId)
+    public function store(Request $request, $projectId, $testId)
     {
         $request->validate([
             'code_body' => 'required|string|max:255',
@@ -34,7 +42,7 @@ class CodeController extends Controller
        
         $code = Code::create([
             'code_body' => $request->input('code_body'),
-            'test_id' => $testId,
+            'test_id' => $this->getTestID($request),
         ]);
         return response()->json($code, 201);
     }
@@ -45,23 +53,10 @@ class CodeController extends Controller
         return response()->json($code);
     }
 
-    // public function destroy($testId, $codeId)
-    // {
-    //     try {
-    //         $code = Code::where('test_id', $testId)->findOrFail($codeId);
-    //         $code->delete();
-    //         return response()->json(['message' => 'code deleted']);
-    //     } catch (\Exception $e) {
-    //         // Log any exceptions for further investigation
-    //         \Log::error('Error deleting code: ' . $e->getMessage());
-    //         return response()->json(['error' => 'Error deleting code'], 500);
-    //     }
-    // }
-
-    public function destroy($testId, $codeId)
+    public function destroy(Request $request, $projectId, $testId, $codeId)
     {
         try {
-            $code = Code::where('test_id', $testId)->find($codeId);
+            $code = Code::where('test_id', $this->getTestID($request))->find($codeId);
 
             if (!$code) {
                 return response()->json(['error' => 'Code not found'], 404);
@@ -75,5 +70,4 @@ class CodeController extends Controller
             return response()->json(['error' => 'Error deleting code'], 500);
         }
     }
-
 }

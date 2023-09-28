@@ -27,7 +27,7 @@ class ProjectController extends Controller
 
         // Retrieve projects associated with the authenticated user
         $project = Project::where('user_id', $user_id)->get();
-        return response()->json($project);
+        // return response()->json($project);
     }
 
     public function store(Request $request)

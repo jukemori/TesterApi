@@ -10,12 +10,25 @@ class TestController extends Controller
 {
     public function index(Request $request, $projectId)
     {
+        // $tests = Test::where('project_id', $projectId)->get();
+        // return response()->json($tests);
+
+        // Debugging: Log the value of $projectId
+        \Log::info("Received projectId: $projectId");
+
         $tests = Test::where('project_id', $projectId)->get();
         return response()->json($tests);
     }
 
     public function show($projectId, $testId)
     {
+        // $test = Test::where('project_id', $projectId)->findOrFail($testId);
+        // return response()->json($test);
+
+        // Debugging: Log the value of $projectId
+        \Log::info("Received projectId: $projectId");
+        \Log::info("Received testId: $testId");
+    
         $test = Test::where('project_id', $projectId)->findOrFail($testId);
         return response()->json($test);
     }

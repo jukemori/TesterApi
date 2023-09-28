@@ -10,8 +10,9 @@ class Code extends Model
     use HasFactory;
 
     protected $fillable = [
+        'test_id',
         'code_body',
-        'test_id'
+       
     ];
 
     public function test()

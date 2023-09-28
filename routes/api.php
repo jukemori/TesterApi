@@ -23,7 +23,11 @@ use App\Http\Controllers\API\AuthController;
         Route::resource('projects', ProjectController::class);
     
         Route::resource('projects.tests', TestController::class);
-    
+
+        // Explicitly define the route for codes using parameters {projectId} and {testId}
+        Route::get('projects/{projectId}/tests/{testId}/codes', [CodeController::class, 'index']);
+        Route::post('projects/{projectId}/tests/{testId}/codes', [CodeController::class, 'store']);
+        Route::delete('projects/{projectId}/tests/{testId}/codes/{codeId}', [CodeController::class, 'destroy']);
         Route::resource('projects.tests.codes', CodeController::class);
     });
     
