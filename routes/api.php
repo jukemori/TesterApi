@@ -20,13 +20,13 @@ use App\Http\Controllers\API\AuthController;
 */
     Route::middleware('auth:sanctum')->group(function () {
         // Your protected routes here
-        Route::resource('projects', ProjectController::class);
-    
-        Route::resource('projects.tests', TestController::class);
-    
-        Route::resource('projects.tests.codes', CodeController::class);
     });
     
+    Route::resource('projects', ProjectController::class);
+
+    Route::resource('projects.tests', TestController::class);
+
+    Route::resource('projects.tests.codes', CodeController::class);
     
 
     Route::resource('suggestions', SuggestionController::class);

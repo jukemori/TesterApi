@@ -11,25 +11,23 @@ class ProjectController extends Controller
 {
     public function index()
     {
+        // $projects = Project::all();
+        // return response()->json($projects);
+
         // Get the authenticated user's ID
         $user_id = auth()->id();
-
         // Retrieve projects associated with the authenticated user
         $projects = Project::where('user_id', $user_id)->get();
-
         return response()->json($projects);
     }
 
     public function show(Project $project)
-    {   
+    {
         $user_id = auth()->id();
 
-    // Check if the user is authorized to view the project
-    if ($project->user_id != $user_id) {
-        return response()->json(['error' => 'Unauthorized'], 401);
-    }
-
-    return response()->json($project);
+        // Retrieve projects associated with the authenticated user
+        $project = Project::where('user_id', $user_id)->get();
+        return response()->json($project);
     }
 
     public function store(Request $request)

@@ -8,13 +8,17 @@ use App\Models\Code;
 
 class CodeController extends Controller
 {
+   
     public function index(Request $request, $testId)
     {
         \Log::info("Received testId: $testId");
 
         $codes = Code::where('test_id', $testId)->get();
+        \Log::info("Fetched codes:", $codes->toArray()); // Convert $codes to an array
+
         return response()->json($codes);
     }
+
 
     public function show(Code $code)
     {
