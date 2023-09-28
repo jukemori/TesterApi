@@ -14,8 +14,8 @@ class ProjectSeeder extends Seeder
     public function run(): void
     {
         
-        Project::create(['name' => 'Project A']);
-        Project::create(['name' => 'Project B']);
-        Project::create(['name' => 'Project C']);
+        Project::create(['name' => 'Project 1']);
+        Project::create(['name' => 'Project 2']);
+        Project::create(['name' => 'Project 3']);
     }
 }

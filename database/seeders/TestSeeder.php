@@ -12,19 +12,23 @@ class TestSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
-    {
-        $project1 = Project::find(1);
-        $project2 = Project::find(2);
-        $project3 = Project::find(3);
 
-        // Create 4 tests for each project
-        for ($i = 1; $i <= 4; $i++) {
-            Test::create(['name' => "Test {$i}", 'project_id' => $project1->id, 'is_successful' => $i % 2 == 0]);
-            Test::create(['name' => "Test {$i}", 'project_id' => $project2->id, 'is_successful' => $i % 2 == 0]);
-            Test::create(['name' => "Test {$i}", 'project_id' => $project3->id, 'is_successful' => $i % 2 == 0]);
+     public function run(): void
+    {
+        $projects = Project::whereIn('id', [1, 2, 3])->get();
+
+        foreach ($projects as $project) {
+            // Create 3 tests for each project with names like "Test 1," "Test 2," etc.
+            for ($i = 1; $i <= 3; $i++) {
+                Test::create([
+                    'name' => "Test {$project->id}-{$i}",
+                    'project_id' => $project->id,
+                    'is_successful' => $i % 2 == 0,
+                ]);
+            }
         }
     }
+
 }
 
 

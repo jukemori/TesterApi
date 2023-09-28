@@ -21,8 +21,15 @@ class ProjectController extends Controller
     }
 
     public function show(Project $project)
-    {
-        return response()->json($project);
+    {   
+        $user_id = auth()->id();
+
+    // Check if the user is authorized to view the project
+    if ($project->user_id != $user_id) {
+        return response()->json(['error' => 'Unauthorized'], 401);
+    }
+
+    return response()->json($project);
     }
 
     public function store(Request $request)
