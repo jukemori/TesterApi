@@ -35,6 +35,7 @@ use App\Http\Controllers\API\AuthController;
     
 
     Route::resource('suggestions', SuggestionController::class);
+    Route::get('suggestions', [SuggestionController::class, 'index']);
 
     Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         return $request->user();

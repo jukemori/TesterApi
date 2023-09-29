@@ -8,9 +8,13 @@ use App\Models\Suggestion;
 
 class SuggestionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $suggestions = Suggestion::all();
+        $query = $request->input('query'); // Get the query parameter from the request
+
+        // Query the suggestions table to filter by suggestion_text
+        $suggestions = Suggestion::where('suggestion_text', 'like', $query . '%')->get();
+
         return response()->json($suggestions);
     }
 
