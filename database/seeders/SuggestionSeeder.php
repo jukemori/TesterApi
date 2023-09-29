@@ -15,8 +15,8 @@ class SuggestionSeeder extends Seeder
     {
         //
         
-        Suggestion::create(['suggestion_text' => 'Suggestion 1']);
-        Suggestion::create(['suggestion_text' => 'Suggestion 2']);
-        Suggestion::create(['suggestion_text' => 'Suggestion 3']);
+        Suggestion::create(['suggestion_text' => 'apple']);
+        Suggestion::create(['suggestion_text' => 'banana']);
+        Suggestion::create(['suggestion_text' => 'cunt']);
     }
 }

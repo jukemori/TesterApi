@@ -47,11 +47,20 @@ class CodeController extends Controller
         return response()->json($code, 201);
     }
 
-    public function update(Request $request, Code $code)
+    public function update(Request $request, $projectId, $testId, $codeId)
     {
+        $code = Code::where('test_id', $testId)->find($codeId);
+
+        if (!$code) {
+            return response()->json(['error' => 'Code not found'], 404);
+        }
+
+        // Update the code attributes based on your requirements
         $code->update($request->all());
-        return response()->json($code);
+
+        return response()->json(['message' => 'Code updated']);
     }
+
 
     public function destroy(Request $request, $projectId, $testId, $codeId)
     {
