@@ -11,13 +11,22 @@ class SuggestionSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run()
     {
-        //
-        
-        Suggestion::create(['suggestion_text' => 'apple']);
-        Suggestion::create(['suggestion_text' => 'banana']);
-        Suggestion::create(['suggestion_text' => 'cunt']);
-        Suggestion::create(['suggestion_text' => 'donkey']);
+        // An array of suggestion strings
+        $suggestionStrings = [
+            'const',
+            'await',
+            'waitForDisplayed({ timeout: })',
+            "setValue('')",
+            "client.$('~')",
+            "click()"
+        ];
+
+        // Iterate over the suggestion strings and create Suggestion model instances
+        foreach ($suggestionStrings as $suggestionString) {
+            Suggestion::create(['suggestion_text' => $suggestionString]);
+        }
     }
+    
 }
