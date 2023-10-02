@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
         ]);
 
         
-        $projects = ['Project 1', 'Project 2', 'Project 3'];
+        $projects = ['Misk', 'TopCon', 'Panasonic'];
 
         foreach ($projects as $projectName) {
             Project::create([
