@@ -21,14 +21,25 @@ class ProjectController extends Controller
         return response()->json($projects);
     }
 
+    // public function show(Project $project)
+    // {
+    //     $user_id = auth()->id();
+
+    //     // Retrieve projects associated with the authenticated user
+    //     $project = Project::where('user_id', $user_id)->get();
+    //     // return response()->json($project);
+    // }
+
     public function show(Project $project)
     {
-        $user_id = auth()->id();
+        // Check if the authenticated user owns the requested project
+        if ($project->user_id !== auth()->id()) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
 
-        // Retrieve projects associated with the authenticated user
-        $project = Project::where('user_id', $user_id)->get();
-        // return response()->json($project);
+        return response()->json($project);
     }
+
 
     public function store(Request $request)
     {
