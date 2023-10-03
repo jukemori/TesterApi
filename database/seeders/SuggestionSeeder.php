@@ -20,7 +20,22 @@ class SuggestionSeeder extends Seeder
             'waitForDisplayed({ timeout: })',
             "setValue('')",
             "client.$('~')",
-            "click()"
+            "click()",
+            "pause()",
+            "expect()",
+            "let",
+            "this",
+            "toHaveText('')",
+            "checkValidCaps()",
+            "require()",
+            "skip()",
+            "checkFireWall()",
+            "imgCompare('')",
+            "pageAuth('')",
+            "checkValidCaps()",
+
+
+
         ];
 
         // Iterate over the suggestion strings and create Suggestion model instances
